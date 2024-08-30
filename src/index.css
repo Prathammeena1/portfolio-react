@@ -1,0 +1,22 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+*{
+    font-family: 'gilroy';
+}
+
+.welcome-text{
+    background: 
+    /* linear-gradient(
+        0deg,
+        rgba(255, 255, 255, 0.4),
+        rgba(255, 255, 255, 0.4),
+    ), */
+    linear-gradient(90.01deg,#e59cff .01% ,#ba9cff 20.01%,#9cb2ff 100%);
+    background-blend-mode: normal,screen;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
