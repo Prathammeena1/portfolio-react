@@ -11,6 +11,7 @@ export function slideFromLeft(delay) {
     },
   };
 }
+
 export function slideFromRight(delay) {
   return {
     hidden: { x: 100, opacity: 0 },
@@ -25,13 +26,14 @@ export function slideFromRight(delay) {
   };
 }
 
+
 export const slideFromTop = {
   hidden: {
     y: -100,
     opacity: 0,
   },
   visible: {
-    y:1,
+    y: 1,
     opacity: 1,
     transition: {
       duration: 0.5,
@@ -39,6 +41,7 @@ export const slideFromTop = {
     },
   },
 };
+
 
 export const slideFromBottom = {
   hidden: { y: 100, opacity: 0 },
