@@ -4,7 +4,7 @@ import HeroContent from '../sub/HeroContent'
 
 const Hero = () => {
   return (
-    <div className='h-screen w-full relative overflow-hidden'>
+    <div className='h-screen w-full relative'>
       <video 
       autoPlay
       loop

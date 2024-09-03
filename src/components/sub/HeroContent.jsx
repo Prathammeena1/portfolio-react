@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { slideFromLeft, slideFromTop } from '../utils/motion'
 import { SparklesIcon } from '@heroicons/react/16/solid'
 import { Canvas } from '@react-three/fiber'
-import { Environment, OrbitControls } from '@react-three/drei'
+import { Environment, OrbitControls, ScrollControls } from '@react-three/drei'
 import LaptopContainer from './LaptopContainer'
 
 const HeroContent = () => {
@@ -63,11 +63,14 @@ const HeroContent = () => {
 
     </div>
 
-    <div className='h-full w-[60%] relative'>
-    {environmentLoaded && <Canvas camera={{fov:14,position:[0,-10,220]}}>
+    <div className='h-full w-full absolute top-0 left-0'>
+    {environmentLoaded &&
+     <Canvas camera={{fov:14,position:[0,-10,220]}}>
         {/* <OrbitControls/> */}
          <Environment files={light} />
+         <ScrollControls style={{opacity:0}}>
         <LaptopContainer/>
+         </ScrollControls>
       </Canvas>  }     
     </div>
 
