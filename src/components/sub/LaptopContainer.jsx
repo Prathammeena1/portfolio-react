@@ -10,7 +10,7 @@ const   LaptopContainer = () => {
   const [rotation, setRotation] = useState(THREE.MathUtils.degToRad(0)); // Start at 180 degrees
   const [mouseX, setMouseX] = useState(0);
   const [mouseY, setMouseY] = useState(0);
-  const tex = useTexture('./model/red.jpg')
+  const tex = useTexture('./model/bg.png')
 
   let meshes = {};
   model.scene.traverse((e) => {
@@ -78,7 +78,7 @@ const   LaptopContainer = () => {
 
 
   return (
-    <group ref={groupRef} position={[20, -10, 20]}>
+    <group ref={groupRef} position={[25, -10, 20]}>
       <primitive object={model.scene} />
     </group>
   );
