@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, useMemo } from "react";
 import { motion, useScroll, useTransform, useAnimation } from "framer-motion";
 import StarModel from "../sub/StarModel";
 
@@ -38,18 +38,70 @@ const Skills = () => {
     return () => unsubscribe();
   }, [scrollYProgress, starsControls, textAnimationComplete]);
 
+  const gridContent = useMemo(() => {
+    const grid = Array(10).fill().map(() => Array(8).fill(0));
+    const images = [
+      "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg",
+      "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg",
+      "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg",
+      "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg",
+      "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg"
+    ];
+    
+    const placeImage = (row, col) => {
+      if (grid[row][col] === 0 && 
+          grid[row].filter(cell => cell === 1).length < 1 &&
+          grid.map(r => r[col]).filter(cell => cell === 1).length < 1) {
+        grid[row][col] = 1;
+        return true;
+      }
+      return false;
+    };
+
+    let totalImages = 0;
+    while (totalImages < 10) {
+      const row = Math.floor(Math.random() * 10);
+      const col = Math.floor(Math.random() * 8);
+      if (placeImage(row, col)) {
+        totalImages++;
+      }
+    }
+
+    return grid.flatMap((row, rowIndex) => 
+      row.map((cell, colIndex) => {
+        const randomImage = Math.floor(Math.random() * 5);
+        return (
+          <div key={`${rowIndex}-${colIndex}`} className="relative grid-item" style={{gridRow: rowIndex + 1, gridColumn: colIndex + 1}}>
+            {cell === 1 && (
+              <div className="w-full h-full flex items-center justify-center">
+                <img 
+                  src={images[randomImage]} 
+                  alt={`Skill ${randomImage}`}
+                  className="h-[150px] object-cover"
+                  style={{ aspectRatio: '1/1' }}
+                />
+              </div>
+            )}
+          </div>
+        );
+      })
+    );
+  }, []);
+
   return (
-    <div ref={containerRef} className="skills-page relative h-[200vh] bg-[#030014] w-full">
+    <div ref={containerRef} className="skills-page relative h-[500vh] bg-[#030014] w-full">
       <div className="sticky top-0 h-screen overflow-hidden">
         <motion.div 
           style={{ scale: modelScale, opacity: modelBrightness }}
           className="skill-model absolute top-0 left-0 right-0 bottom-0 h-full w-full bg-transparent z-[2]"
         >
           <div className="logoHidder"></div>
-          <spline-viewer
-            loading-anim-type="spinner-big-dark"
-            url="https://prod.spline.design/whgtU8ckFrTFSzmh/scene.splinecode"
-          ></spline-viewer>
+          {typeof window !== 'undefined' && (
+            <spline-viewer
+              loading-anim-type="spinner-big-dark"
+              url="https://prod.spline.design/whgtU8ckFrTFSzmh/scene.splinecode"
+            ></spline-viewer>
+          )}
         </motion.div>
 
         <motion.div 
@@ -60,36 +112,26 @@ const Skills = () => {
             Presenting Skills
           </h2>
         </motion.div>
-        <motion.div 
-          className="skill-logos absolute top-0 left-0 right-0 bottom-0 h-screen w-full z-[5] flex flex-wrap justify-center items-center"
-          style={{ opacity: useTransform(scrollYProgress, [0, 1], [0, 1]) }}
+      
+        {/* <motion.div 
+          className="absolute h-full w-full"
+          style={{
+            top: useTransform(scrollYProgress, [0, 1], ['100%', '-275%'])
+          }}
         >
-          {[
-            "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg",
-            "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg",
-            "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg",
-            "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg",
-            "/model/express.png",
-            "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg",
-            "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg",
-            "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg",
-            "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg",
-            "/model/three.png",
-            "https://www.vectorlogo.zone/logos/framer/framer-icon.svg",
-            "https://www.vectorlogo.zone/logos/git-scm/git-scm-icon.svg",
-            "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg",
-            "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postman/postman-plain.svg"
-          ].map((imageUrl, index) => (
-            <motion.div 
-              key={index}
-            >
-              <StarModel imageUrl={imageUrl} size={1} />
-            </motion.div>
-          ))}
-        </motion.div>
+          <div className="h-screen w-full ">
+            <div className="grid grid-cols-8 grid-rows-10 h-full w-full gap-8">
+              {gridContent}
+          
+            </div>
+          </div>
+          <div className="h-screen w-full bg-yellow-500"></div>
+          <div className="h-screen w-full bg-green-500"></div>
+        </motion.div> */}
       </div>
     </div>
-  );
+
+      );
 };
 
 export default Skills;
