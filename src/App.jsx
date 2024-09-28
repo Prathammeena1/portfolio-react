@@ -1,10 +1,10 @@
 import React, { useEffect, useRef } from "react"
 import Lenis from '@studio-freight/lenis'
 import Hero from "./components/main/Hero"
-// import Page2 from "./components/main/Page2"
 import StarCanvas from "./components/main/StarBackground"
-// import Navbar from "./components/main/Navbar"
-import Skills from "./components/main/Skills"
+import NewSkills from "./components/main/NewSkills"
+import Projects from "./components/main/Projects"
+import Random from "./components/main/Random"
 
 const App = () => {
   const lenisRef = useRef()
@@ -29,10 +29,9 @@ const App = () => {
   return (
     <div className="relative bg-[#030014] h-full w-full text-zinc-200">
       <StarCanvas />
-      {/* <Navbar/> */}
       <Hero />
-      <Skills />
-      {/* <Page2/> */}
+      <Projects />
+      {/* <Random /> */}
     </div>
   )
 }

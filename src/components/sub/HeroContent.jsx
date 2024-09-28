@@ -2,18 +2,10 @@ import { motion } from "framer-motion";
 import React, { useState } from "react";
 import { slideFromLeft, slideFromTop } from "../utils/motion";
 import { SparklesIcon } from "@heroicons/react/16/solid";
-import { Canvas } from "@react-three/fiber";
-import { Environment, ScrollControls } from "@react-three/drei";
-import LaptopContainer from "./LaptopContainer";
+
 
 const HeroContent = () => {
-  const [light, setLight] = useState("");
-  const [environmentLoaded, setEnvironmentLoaded] = useState(false);
-
-  const handleAnimationComplete = () => {
-    setLight("./model/studio_small_09_4k.exr");
-    setEnvironmentLoaded(true);
-  };
+  
 
   return (
     <motion.div
@@ -35,10 +27,10 @@ const HeroContent = () => {
 
         <motion.h2
           variants={slideFromLeft(0.5)}
-          className="flex flex-col mt-6 text-6xl font-bold text-white max-w-[600px]"
+          className="flex flex-col mt-6 text-6xl font-bold text-white max-w-[700px] heading"
         >
           Providing
-          <span className="text-transparent bg-clip-text bg-gradient-to-t from-purple-500 to-cyan-500">
+          <span className="text-transparent bg-clip-text bg-gradient-to-t from-purple-500 to-cyan-500 heading">
             the best
           </span>
           project experience
@@ -54,7 +46,6 @@ const HeroContent = () => {
         <motion.a
           variants={slideFromLeft(1)}
           className="py-2 px-6 button-primary text-center welcome-text border border-zinc-500 text-white cursor-pointer rounded-lg w-fit max-w-[200px]"
-          onAnimationComplete={handleAnimationComplete}
         >
           Learn More
         </motion.a>
@@ -64,16 +55,7 @@ const HeroContent = () => {
         <h1 className="text-white text-2xl font-meduim mont">Scroll down...</h1>
       </div>
 
-      {/* <div className="h-full w-full absolute top-0 left-0 z-[3]">
-        {environmentLoaded && (
-          <Canvas camera={{ fov: 14, position: [0, -10, 220] }}>
-            <Environment files={light} />
-            <ScrollControls style={{ opacity: 0 }}>
-              <LaptopContainer />
-            </ScrollControls>
-          </Canvas>
-        )}
-      </div> */}
+      
     </motion.div>
   );
 };
